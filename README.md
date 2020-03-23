@@ -1,21 +1,23 @@
- # Bramble API Flow
-**1.** First the user click the Authorize Button 
-He is directed to the URL by the following code in Javascripts
+# Bramble API Flow
+
+**1.** The user clicks the Bramble Authorize Button (Front Channel) 
+He is directed to the URL by clicking on a Button
 
 ```
-var win = window.open('http://ip_address/'+btoa('client_id:client_secret_id'), '_blank');
+
+window.open('http://3.19.60.28:3000/'+btoa('client_id:client_secret_id'), '_self');
 
 ```
-
-**2.** Then he is directed to this page.
+Then he is directed to this page.
 ![Authorization Page](img/1.png)
 
-**3.** Enter his credentials and he is redirected to your website
+User enters his credentials and he is redirected to your website
 ![Credentials](img/2.png)
 
-**4.** He is redirected on the Callback URL you provided. Suppose for example the redirect uri is http://armygrid.com/wallet_token . You can receive the wallet token at the callback url. After you have saved wallet_token from the callback url.
+He is redirected on the Callback URL you provided. Suppose for example the callback url is http://flappybird.com/wallet_token. As you have received the wallet token(or the access token) at the callback url, save the wallet token(or access token) in your server for the particular user.
 
-**5.** After that a authorization request is sent.
+**2.** Authorization request is sent (Back Channel)
+
 URL
 http://" + ip_address + "/authorise?response_type=code&client_id=client_id&redirect_uri=callback_url&state=teststate&scope=profile"
 
