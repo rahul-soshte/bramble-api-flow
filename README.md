@@ -70,35 +70,7 @@ As you have received the **wallet token**(or the access token) at the callback u
       "scope": "profile",
       "code": "8b8c5ee88cf3f61043e7a5e372deae5374cfe91b"
     }`
- 
-* **Error Response:**
-
- * **Code:** 400<br />
-    **Content:** `{
-    "code": 400,
-     }`
-
-  OR
-
-  * **Code:** 401<br />
-    **Content:** `{
-      "code": 401,
-    }`
-
-  OR
-
-  * **Code:** 500<br />
-    **Content:** `{
-      "code": 500,
-    }`
-
-  OR
-
-   * **Code:** 500<br />
-    **Content:** `{
-      "code": 403,
-    }`
-
+    
 * **Sample Call:**
 
   ```javascript
