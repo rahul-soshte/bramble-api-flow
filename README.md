@@ -33,7 +33,7 @@ As you have received the **wallet token**(or the access token) at the callback u
 
 * **URL**
 
-  http://3.19.60.28:3000/authorise?response_type=code&client_id=CLIENT_ID&redirect_uri=CALLBACK_URL&state=TESTSTATE&scope=PROFILE
+    /authorise?response_type=code&client_id=CLIENT_ID&redirect_uri=CALLBACK_URL&state=TESTSTATE&scope=PROFILE
 
 * **Method:**
 
@@ -70,7 +70,7 @@ As you have received the **wallet token**(or the access token) at the callback u
       "scope": "profile",
       "code": "8b8c5ee88cf3f61043e7a5e372deae5374cfe91b"
     }`
-    
+
 * **Sample Call:**
 
   ```javascript
@@ -94,6 +94,7 @@ As you have received the **wallet token**(or the access token) at the callback u
   Using the previous code, the final access Token which will help to send / receive data
 
 * **URL**
+
     /oauth/token
 
 * **Method:**
@@ -162,6 +163,7 @@ As you have received the **wallet token**(or the access token) at the callback u
  Final Request which will send data to Bramble server
 
 * **URL**
+
     /redeem/:reward
 
 * **Method:**
