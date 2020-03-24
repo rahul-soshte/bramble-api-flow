@@ -1,11 +1,12 @@
 # Bramble API Flow
 
-**1.** The user clicks the Bramble Authorize Button (Front Channel API Integration) 
+**1.** The user clicks the Bramble Authorize Button
+
 He is directed to the URL by clicking on a Button
 
 ```
 
-window.open('http://3.19.60.28:3000/'+btoa('client_id:client_secret_id'), '_self');
+window.open('http://3.19.60.28:3000/'+btoa('CLIENT_ID:CLIENT_SECRET_ID'), '_self');
 
 ```
 Then he is directed to this page.
@@ -16,18 +17,18 @@ User enters his credentials and he is redirected to your website
 
 ![Credentials](img/2.png) 
 
-He is redirected on the Callback URL you provided. Suppose for example the callback url is 
+He is redirected on the Callback URL of the game. Suppose for example the callback url returned is 
+
+``` 
+
+https://flappybird.com/wallet_token
 
 ```
+As you have received the **wallet token** at the callback url, save the **wallet token** in your server for the particular user.
 
-http://flappybird.com/wallet_token
+**2.** Authorization Requests
 
-```
-As you have received the **wallet token**(or the access token) at the callback url, save the wallet token(or access token) in your server for the particular user.
-
-**2.** Authorization Code Request(Back Channel API Integration)
-
-**Authorization Code Request 1**
+**Authorization Request**
 ----
   The Game Server receieves a Authorization code from this request.
 
@@ -43,17 +44,20 @@ As you have received the **wallet token**(or the access token) at the callback u
 
    **Required:**
  
-   `response_type='code'
-    client_id=[String]
-    redirect_uri=[String]
-    state=[String]
-    scope=[String]
-   `
+   `response_type='code'`
+  
+   `client_id=[String]`
+    
+   `redirect_uri=[String]`
+    
+   `state=[String]`
+    
+   `scope=[String]`
 
 * **Header Params**
   **Required:**
-  `
-  Authorization='Bearer ' + wallet_token
+
+  `Authorization='Bearer ' + wallet_token
   `
 
 * **Data Params**
@@ -63,10 +67,12 @@ As you have received the **wallet token**(or the access token) at the callback u
 * **Success Response:**
 
   * **Code:** 200 <br />
-    **Content:** `{
+    **Content:**
+
+     `{
       "authorizationCode": "8b8c5ee88cf3f61043e7a5e372deae5374cfe91b",
       "expiresAt": "2020-03-23T14:14:52.796Z",
-      "redirectUri": "CALLBACK_URL",
+      "redirectUri": "http://localhost:3000/",
       "scope": "profile",
       "code": "8b8c5ee88cf3f61043e7a5e372deae5374cfe91b"
     }`
@@ -75,9 +81,9 @@ As you have received the **wallet token**(or the access token) at the callback u
 
   ```javascript
         var xhr = new XMLHttpRequest();
-        authURL = "http://" + bramble.ip_address + "/authorise?response_type=code&client_id="+client_id+"&redirect_uri=CALLBACK_URL&state=teststate&scope=profile";
+        authURL = "http://" + bramble.ip_address + "/authorise?response_type=code&client_id=CLIENT_ID&redirect_uri=CALLBACK_URL&state=teststate&scope=profile";
         xhr.open('POST',authURL, true);
-        xhr.setRequestHeader("Authorization","Bearer "+ value);
+        xhr.setRequestHeader("Authorization","Bearer "+ wallet_token );
         xhr.onreadystatechange = function() {
 
         if (xhr.readyState == XMLHttpRequest.DONE) {
@@ -87,15 +93,14 @@ As you have received the **wallet token**(or the access token) at the callback u
         xhr.send();
   ```
 
-**3.** Authorization Request Part 2
 
-**Authorization Code Request 2**
+**Authorization Grant Request**
 ----
-  Using the previous code, the final access Token which will help to send / receive data
+  Extracting the 'code' in the Success Response of the previous, the final access Token which will help to send / receive data using this request
 
 * **URL**
 
-    /oauth/token
+  /oauth/token
 
 * **Method:**
 
@@ -110,27 +115,28 @@ As you have received the **wallet token**(or the access token) at the callback u
 * **Header Params**
   
   **Required:**
-  `
-  Authorization='Basic ' + base64('client_id:client_secret_id)')
+
+  `Authorization='Basic ' + base64encode('CLIENT_ID:CLIENT_SECRET_ID)')
   `
 
 * **Data Params**
-     `
-      grant_type='authorization_code'
-      code=CODE_RECEIVED_IN_THE_PREVIOUS REQUEST
-      redirect_uri=CALLBACK_URL
-     `
+
+     `grant_type='authorization_code'`
+
+     `code=CODE_RECEIVED_IN_THE_PREVIOUS REQUEST`
+     
+     `redirect_uri=CALLBACK_URL`
 
 * **Success Response:**
 
   * **Code:** 200 <br />
-    **Content:** `{
-      "authorizationCode": "8b8c5ee88cf3f61043e7a5e372deae5374cfe91b",
-      "expiresAt": "2020-03-23T14:14:52.796Z",
-      "redirectUri": "CALLBACK_URL",
-      "scope": "profile",
-      "code": "8b8c5ee88cf3f61043e7a5e372deae5374cfe91b"
-    }`
+    **Content:** 
+
+      `{
+        "access_token": "199146e7e010ffa216301333b4c8cc14b9184958",
+        "accessTokenExpiresAt": "2020-03-24T13:34:07.337Z",
+        "scope": "profile"
+       }`
 
 * **Sample Call:**
 
@@ -138,10 +144,10 @@ As you have received the **wallet token**(or the access token) at the callback u
         var xhr = new XMLHttpRequest();
         authURL = "http://3.19.60.28/oauth/token";
         xhr.open('POST',authURL, true);
-        xhr.setRequestHeader("Authorization","Basic "+ btoa("client_id:client_secret_id"));
+        xhr.setRequestHeader("Authorization","Basic "+ btoa("CLIENT_ID:CLIENT_SECRET_ID"));
         let formData = new FormData();
         formData.append("grant_type", "authorization_code");
-        formData.append(code, CODE_RECEIVED_IN_THE_PREVIOUS REQUEST );
+        formData.append(code,"8b8c5ee88cf3f61043e7a5e372deae5374cfe91b");
         formData.append("redirect_uri", "http://localhost:3000/");
         xhr.onreadystatechange = function() {
 
@@ -149,13 +155,8 @@ As you have received the **wallet token**(or the access token) at the callback u
                 alert(xhr.responseText);
             }
         }
-
         xhr.send(formData);
   ```
-
-    authURL = "http://ip_address/redeem/"+$("#earned").html();
-    xhr.open('POST',authURL, true);
-    xhr.setRequestHeader("Authorization","Bearer "+ Cookies.get('access_token'));
 
 **4.** Redeem Request
 **Redeem Request Template**
@@ -173,13 +174,15 @@ As you have received the **wallet token**(or the access token) at the callback u
 *  **URL Params**
 
    **Required:**
+
       `reward=[integer]` 
 
 * **Header Params**
   
   **Required:**
+
       `
-      Authorization='Bearer ' + token_received_in_the_last_step
+      Authorization='Bearer ' + access_token(Received in Authorization Request 2)
       `
 
 * **Data Params**
@@ -191,14 +194,13 @@ As you have received the **wallet token**(or the access token) at the callback u
   * **Code:** 200 <br />
     **Content:** `URL which will direct to a Successfully Redeem Page`
 
-
 * **Sample Call:**
 
   ```javascript
         var xhr = new XMLHttpRequest();
-        authURL = "http://3.19.60.28:3000/redeem/"+$("#reward_earned").html();
+        authURL = "http://3.19.60.28:3000/redeem/100";
         xhr.open('POST',authURL, true);
-        xhr.setRequestHeader("Authorization","Bearer "+ token_received_in_the_last_step);        
+        xhr.setRequestHeader("Authorization","Bearer "+ "199146e7e010ffa216301333b4c8cc14b9184958");        
         xhr.send();
 
         xhr.onreadystatechange = function() {
@@ -216,4 +218,5 @@ As you have received the **wallet token**(or the access token) at the callback u
             }
         }
   ```
+
 
