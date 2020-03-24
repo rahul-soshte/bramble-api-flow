@@ -156,8 +156,8 @@ As you have received the **wallet token** at the callback url, save the **wallet
         xhr.send(formData);
   ```
 
-**4.** Redeem Request
-**Redeem Request Template**
+**4.** 
+**Simple Redeem Request**
 ----
  Final Request which will send data to Bramble server
 
