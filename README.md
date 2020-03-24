@@ -26,7 +26,7 @@ https://flappybird.com/wallet_token
 ```
 As you have received the **wallet token** at the callback url, save the **wallet token** in your server for the particular user.
 
-**2.** Authorization Requests
+**2.**
 
 **Authorization Request**
 ----
@@ -68,7 +68,6 @@ As you have received the **wallet token** at the callback url, save the **wallet
 
   * **Code:** 200 <br />
     **Content:**
-
      `{
       "authorizationCode": "8b8c5ee88cf3f61043e7a5e372deae5374cfe91b",
       "expiresAt": "2020-03-23T14:14:52.796Z",
@@ -131,7 +130,6 @@ As you have received the **wallet token** at the callback url, save the **wallet
 
   * **Code:** 200 <br />
     **Content:** 
-
       `{
         "access_token": "199146e7e010ffa216301333b4c8cc14b9184958",
         "accessTokenExpiresAt": "2020-03-24T13:34:07.337Z",
@@ -182,7 +180,7 @@ As you have received the **wallet token** at the callback url, save the **wallet
   **Required:**
 
       `
-      Authorization='Bearer ' + access_token(Received in Authorization Request 2)
+      Authorization='Bearer ' + access_token(Received in Authorization Grant Request)
       `
 
 * **Data Params**
@@ -218,5 +216,4 @@ As you have received the **wallet token** at the callback url, save the **wallet
             }
         }
   ```
-
 
