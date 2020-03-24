@@ -1,7 +1,8 @@
 # Bramble API Flow
 
-**1.** The user clicks the Bramble Authorize Button
-
+**1.**
+**User clicks the Bramble Authorize Button**
+---
 He is directed to the URL by clicking on a Button
 
 ```
