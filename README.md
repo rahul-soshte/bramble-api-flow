@@ -27,7 +27,6 @@ https://flappybird.com/wallet_token
 As you have received the **wallet token** at the callback url, save the **wallet token** in your server for the particular user.
 
 **2.**
-
 **Authorization Request**
 ----
   The Game Server receieves a Authorization code from this request.
@@ -92,7 +91,7 @@ As you have received the **wallet token** at the callback url, save the **wallet
         xhr.send();
   ```
 
-
+**3.**
 **Authorization Grant Request**
 ----
   Extracting the 'code' in the Success Response of the previous, the final access Token which will help to send / receive data using this request
