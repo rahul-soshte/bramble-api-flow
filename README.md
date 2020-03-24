@@ -122,7 +122,7 @@ As you have received the **wallet token** at the callback url, save the **wallet
 
      `grant_type='authorization_code'`
 
-     `code=CODE_RECEIVED_IN_THE_PREVIOUS REQUEST`
+     `code=CODE_RECEIVED_IN_THE_AUTHORIZATION_REQUEST`
      
      `redirect_uri=CALLBACK_URL`
 
