@@ -155,7 +155,7 @@ As you have received the **wallet token** at the callback url, save the **wallet
         }
         xhr.send(formData);
   ```
-  
+
 **4.** 
 **Simple Achievement Data POST Request**
 ----
@@ -199,20 +199,13 @@ Request which will send Achievements data of the user to Bramble API. So if a us
         var achievementURL = "http://3.19.60.28:3000/achievement/5e871be30b3d43640a15e01b";
         xhr.open('POST',achievementURL, true);
         xhr.setRequestHeader("Authorization","Bearer "+ "199146e7e010ffa216301333b4c8cc14b9184958");        
-        xhr.send();
-
-        xhr.onreadystatechange = function() {
         
+         xhr.onreadystatechange = function() {
+
         if (xhr.readyState == XMLHttpRequest.DONE) {
-            // alert(xhr.responseText);
-            var win = window.open(xhr.responseText, '_blank');
-            if (win) {
-            //Browser has allowed it to be opened
-            win.focus();
-            } else {
-                //Browser has blocked it
-                alert('Please allow popups for this website');
-                }
+                alert(xhr.responseText);
             }
         }
+
+        xhr.send();
   ```
