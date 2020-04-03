@@ -155,15 +155,15 @@ As you have received the **wallet token** at the callback url, save the **wallet
         }
         xhr.send(formData);
   ```
-
+  
 **4.** 
-**Simple Redeem Request**
+**Simple Achievement Data POST Request**
 ----
- Final Request which will send data to Bramble server
+Request which will send Achievements data of the user to Bramble API. So if a user has completed a particular the game can send data to Bramble API with this request. 
 
 * **URL**
 
-    /redeem/:reward
+    /achievement/:achievement_id
 
 * **Method:**
 
@@ -173,7 +173,7 @@ As you have received the **wallet token** at the callback url, save the **wallet
 
    **Required:**
 
-      `reward=[integer]` 
+      `achievement_id=[hexadecimal]` 
 
 * **Header Params**
   
@@ -190,14 +190,14 @@ As you have received the **wallet token** at the callback url, save the **wallet
 * **Success Response:**
 
   * **Code:** 200 <br />
-    **Content:** `URL which will direct to a Successfully Redeem Page`
+    **Content:** `Added Achievement Successfully`
 
 * **Sample Call:**
 
   ```javascript
         var xhr = new XMLHttpRequest();
-        authURL = "http://3.19.60.28:3000/redeem/100";
-        xhr.open('POST',authURL, true);
+        var achievementURL = "http://3.19.60.28:3000/achievement/5e871be30b3d43640a15e01b";
+        xhr.open('POST',achievementURL, true);
         xhr.setRequestHeader("Authorization","Bearer "+ "199146e7e010ffa216301333b4c8cc14b9184958");        
         xhr.send();
 
@@ -216,4 +216,3 @@ As you have received the **wallet token** at the callback url, save the **wallet
             }
         }
   ```
-
