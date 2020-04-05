@@ -87,7 +87,7 @@ As you have received the **wallet token** at the callback url, save the **wallet
 
   ```javascript
         var xhr = new XMLHttpRequest();
-        authURL = "http://" + bramble.ip_address + "/authorise?response_type=code&client_id=mansim&redirect_uri=http://armygrid.com/callback/&state=teststate&scope=profile";
+        authURL = "http://3.19.60.28:3000/authorise?response_type=code&client_id=mansim&redirect_uri=http://armygrid.com/callback/&state=teststate&scope=profile";
         xhr.open('POST',authURL, true);
         xhr.setRequestHeader("Authorization","Bearer "+ wallet_token );
         xhr.onreadystatechange = function() {
