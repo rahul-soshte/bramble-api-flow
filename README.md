@@ -78,7 +78,7 @@ As you have received the **wallet token** at the callback url, save the **wallet
     "statusCode": 400,
     "status": 400,
     "code": 400,
-    "message": "Invalid client: `redirect_uri` does not match client value",
+    "message": "Invalid client: redirect_uri does not match client value",
     "name": "invalid_client"
    }`
 
@@ -162,7 +162,7 @@ As you have received the **wallet token** at the callback url, save the **wallet
                 alert(xhr.responseText);
             }
         }
-        xhr.send(formData);
+        xhr.send(data);
   ```
 
 **4.** 
@@ -185,12 +185,8 @@ Request which will send Achievements data of the user to Bramble API. So if a us
       `achievement_id=[hexadecimal]` 
 
 * **Header Params**
-  
-  **Required:**
 
-      `
-      Authorization='Bearer ' + access_token(Received in Authorization Grant Request)
-      `
+      `Authorization='Bearer ' + access_token(Received in Authorization Grant Request)`
 
 * **Success Response:**
 
