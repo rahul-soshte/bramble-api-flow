@@ -1,44 +1,16 @@
 # Bramble API Flow
-
 **1.**
 **User clicks the Bramble Authorize Button**
----
-He is directed to the URL by clicking on a Button
-
-```
-
-window.open('http://3.19.60.28:3000/'+btoa('client_id:client_secret_id'), '_self');
-
-```
-Then he is directed to this page.
-
-![Authorization Page](img/1.png) 
-
-User enters his credentials and he is redirected to your website
-
-![Credentials](img/2.png) 
-
-He is redirected on the Callback URL of the game. Suppose for example the callback url returned is 
-
-``` 
-
-https://flappybird.com/wallet_token
-
-```
-As you have received the **wallet token** at the callback url, save the **wallet token** in your server for the particular user.
-
-**2.**
-**Authorization Request**
 ----
-  The Game Server receieves a Authorization code from this request.
+  The user puts in his username and password and then is redirected back to the game. 
 
 * **URL**
 
-    /authorise?response_type=code&client_id=client_id&redirect_uri=callback_url&state=teststate&scope=profile
+    /bramble?response_type=code&client_id=client_id&redirect_uri=callback_url&state=teststate&scope=profile
 
 * **Method:**
 
-  `POST`
+  `GET`
   
 *  **URL Query Params**
 
@@ -54,22 +26,11 @@ As you have received the **wallet token** at the callback url, save the **wallet
     
    `scope=[String] (example: 'profile')`
 
-* **Header Params**
-  **Required:**
-
-  `Authorization='Bearer ' + wallet_token`
-
 * **Success Response:**
 
   * **Code:** 200 <br />
     **Content:**
-     `{
-      "authorizationCode": "8b8c5ee88cf3f61043e7a5e372deae5374cfe91b",
-      "expiresAt": "2020-03-23T14:14:52.796Z",
-      "redirectUri": "http://localhost:3000/",
-      "scope": "profile",
-      "code": "8b8c5ee88cf3f61043e7a5e372deae5374cfe91b"
-    }`
+     `HTML Content for the user to put in his username and password`
 
 * **Error Response:**
 
@@ -86,20 +47,10 @@ As you have received the **wallet token** at the callback url, save the **wallet
 * **Sample Call:**
 
   ```javascript
-        var xhr = new XMLHttpRequest();
-        authURL = "http://3.19.60.28:3000/authorise?response_type=code&client_id=mansim&redirect_uri=http://armygrid.com/callback/&state=teststate&scope=profile";
-        xhr.open('POST',authURL, true);
-        xhr.setRequestHeader("Authorization","Bearer "+ wallet_token );
-        xhr.onreadystatechange = function() {
-
-        if (xhr.readyState == XMLHttpRequest.DONE) {
-                alert(xhr.responseText);
-            }
-        }
-        xhr.send();
+        window.open('http://3.19.60.28:3000/bramble?response_type=code&client_id=mansim&redirect_uri=http://armygrid.com/callback/&state=teststate&scope=profile', '_blank');
   ```
 
-**3.**
+**2.**
 **Authorization Grant Request**
 ----
   Extracting the 'code' in the Success Response of the previous, the final access Token which will help to send / receive data using this request
@@ -164,8 +115,8 @@ As you have received the **wallet token** at the callback url, save the **wallet
         }
         xhr.send(data);
   ```
-
-**4.** 
+  
+**3.** 
 **Simple Achievement Data POST Request**
 ----
 Request which will send Achievements data of the user to Bramble API. So if a user has completed a particular the game can send data to Bramble API with this request. 
