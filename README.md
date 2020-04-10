@@ -30,7 +30,7 @@
 
   * **Code:** 200 <br />
     **Content:**
-     `HTML Content for the user to put in his username and password`
+     `Open the Bramble Authorization Page for the user`
 
 * **Error Response:**
 
@@ -83,7 +83,9 @@
       `{
         "access_token": "199146e7e010ffa216301333b4c8cc14b9184958",
         "accessTokenExpiresAt": "2020-03-24T13:34:07.337Z",
-        "scope": "profile"
+        "scope": "profile",
+        "refreshToken": "1dcabd1c75520b4b8567517fc8cd0a8e218865b2",
+        "refreshTokenExpiresAt": "2020-04-24T21:21:56.017Z"
        }`
 
 * **Error Response:**
@@ -115,7 +117,7 @@
         }
         xhr.send(data);
   ```
-  
+
 **3.** 
 **Simple Achievement Data POST Request**
 ----
@@ -137,7 +139,7 @@ Request which will send Achievements data of the user to Bramble API. So if a us
 
 * **Header Params**
 
-      `Authorization='Bearer ' + access_token(Received in Authorization Grant Request)`
+      `Authorization='Bearer ' + access_token_received_in_grant_request`
 
 * **Success Response:**
 
@@ -153,6 +155,61 @@ Request which will send Achievements data of the user to Bramble API. So if a us
     "code": 401,
     "message": "Invalid token: access token has expired",
     "name": "invalid_token"
+    }`
+
+* **Sample Call:**
+
+  ```javascript
+        var xhr = new XMLHttpRequest();
+        var achievementURL = "http://3.19.60.28:3000/achievement/5e872a6ac3d6ae53213befcb";
+        xhr.open('POST',achievementURL, true);
+        xhr.setRequestHeader("Authorization","Bearer "+ "199146e7e010ffa216301333b4c8cc14b9184958");
+        xhr.onreadystatechange = function() {
+
+        if (xhr.readyState == XMLHttpRequest.DONE) {
+                alert(xhr.responseText);
+            }
+        }
+
+        xhr.send();
+  ```
+**3.** 
+**Renewing Access Token / Refresh Token to get back access to the Bramble API**
+
+Sometimes the Access Token / Refresh Token will expire you will renew them again by this request 
+
+* **URL**
+
+    /renew
+
+* **Method:**
+
+  `POST`
+  
+* **Header Params**
+
+      ``Authorization='Basic ' + btoa('client_id:client_secret_id)'``
+
+* **Success Response:**
+
+  * **Code:** 200 <br />
+    **Content:** `{
+        "access_token": "199146e7e010ffa216301333b4c8cc14b9184958",
+        "accessTokenExpiresAt": "2020-03-24T13:34:07.337Z",
+        "scope": "profile",
+        "refreshToken": "1dcabd1c75520b4b8567517fc8cd0a8e218865b2",
+        "refreshTokenExpiresAt": "2020-04-24T21:21:56.017Z"
+       }`
+
+* **Error Response:**
+
+  * **Code:** 400 <br />
+    **Content:** `{
+    "statusCode": 400,
+    "status": 400,
+    "code": 400,
+    "message": "Invalid grant: refresh token is invalid",
+    "name": "invalid_grant"
     }`
 
 * **Sample Call:**
