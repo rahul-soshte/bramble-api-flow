@@ -47,7 +47,7 @@
 * **Sample Call:**
 
   ```javascript
-        window.open('http://3.19.60.28:3000/bramble?response_type=code&client_id=mansim&redirect_uri=http://armygrid.com/callback/&state=teststate&scope=profile', '_blank');
+  window.open('http://3.19.60.28:3000/bramble?response_type=code&client_id=mansim&redirect_uri=http://armygrid.com/callback/&state=teststate&scope=profile', '_blank');
   ```
 * **Notes:**
 
@@ -93,13 +93,14 @@
 
 * **Error Response:**
 
-  * **Code:** 401 <br />
-    **Content:** `{
-    "statusCode": 401,
-    "status": 401,
-    "code": 401,
-    "message": "Invalid token: access token has expired",
-    "name": "invalid_token"
+  * **Code:** 400 <br />
+    **Content:** `
+    {
+    "statusCode": 400,
+    "status": 400,
+    "code": 400,
+    "message": "Invalid grant: authorization code has expired",
+    "name": "invalid_grant"
     }`
 
 * **Sample Call:**
@@ -156,13 +157,13 @@ Request which will send Achievements data of the user to Bramble API. So if a us
 
 * **Error Response:**
 
-  * **Code:** 400 <br />
-    **Content:** `{
-    "statusCode": 400,
-    "status": 400,
-    "code": 400,
-    "message": "Invalid grant: authorization code has expired",
-    "name": "invalid_grant"
+  * **Code:** 401 <br />
+    **Content:** ` {
+    "statusCode": 401,
+    "status": 401,
+    "code": 401,
+    "message": "Invalid token: access token has expired",
+    "name": "invalid_token"
     }`
 
 * **Sample Call:**
@@ -228,9 +229,11 @@ Sometimes the Access Token / Refresh Token will expire you will renew them again
 
   ```javascript
         var xhr = new XMLHttpRequest();
-        var achievementURL = "http://3.19.60.28:3000/achievement/5e872a6ac3d6ae53213befcb";
-        xhr.open('POST',achievementURL, true);
-        xhr.setRequestHeader("Authorization","Bearer "+ "199146e7e010ffa216301333b4c8cc14b9184958");
+        var renewTokenURL = "http://3.19.60.28:3000/renew";
+        xhr.open('POST',renewTokenURL, true);
+        xhr.setRequestHeader("Authorization","Basic "+ btoa("mansim:armygrid"));
+        xhr.setRequestHeader("Content-Type", "application/json"); 
+        var data = JSON.stringify({ "grant_type": "refresh_token","refresh_token": "5ce62efd36a7396abe79e8324bb65f5e33804859"});
         xhr.onreadystatechange = function() {
 
         if (xhr.readyState == XMLHttpRequest.DONE) {
@@ -241,4 +244,4 @@ Sometimes the Access Token / Refresh Token will expire you will renew them again
         xhr.send();
   ```
 * **Notes:**
-  Using the old refresh Token you can regenerate new Refresh Token and new Access Token again. Refresh Token can be called as the wallet token. 
+  Using the old refresh Token you can regenerate new Refresh Token and new Access Token again. Refresh Token as it is called is used to Refresh Tokens. 
