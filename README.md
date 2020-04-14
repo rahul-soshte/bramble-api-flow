@@ -51,12 +51,12 @@
   ```
 * **Notes:**
 
-  The user will be redirected after the authorization step to the callback url of the game. The authorization code will be attached to the callback url ( Example: http://armygrid.com/callback/code ). Extract the authorization code and use it in the next request.
+  The user will be redirected after the authorization step to the callback url of the game. The authorization code will be attached to the callback url ( Example: http://armygrid.com/callback/authorization_code ). Extract the authorization code and use it in the next request.
 
 **2.**
 **Authorization Grant Request**
 ----
-  Extracting the 'code' in the Success Response of the previous, the final access Token which will help to send / receive data using this request
+  Extracting the 'code' in the Callback URL of the previous request, the final access Token which will help to send / receive data using this request
 
 * **URL**
 
@@ -75,7 +75,7 @@
 * **Body Params(raw JSON)**
     `{
      "grant_type":"authorization_code",
-     "code":"code_recieved_in_the_previous request",
+     "code":"authorization_code_recieved_in_the_previous request",
      "redirect_uri":"armygrid.com/bramble_callback"
     }`
 
