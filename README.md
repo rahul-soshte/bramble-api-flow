@@ -77,7 +77,7 @@
 **2.**
 **Authorization Grant Request**
 ----
- The access Token which will help you to send reward data is received in this request.
+ The access Token which will help you to send reward data to Bramble API is received in this request.
 
 * **URL**
 
@@ -93,7 +93,8 @@
 
   `Authorization='Basic ' + btoa('client_id:client_secret_id)'`
 
-* **Body Params(raw JSON)**
+* **Body Params(raw JSON):**
+
     `{
      "grant_type":"authorization_code",
      "code":"authorization_code_recieved_in_the_previous request",
@@ -142,7 +143,7 @@
         }
         xhr.send(data);
   ```
-  <br/>
+
   ```javascript
   
   var postData = {
@@ -173,7 +174,6 @@
   }
 
   request(options, callback);
-
   ```
 
 * **Notes:**
