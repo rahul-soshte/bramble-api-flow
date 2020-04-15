@@ -45,23 +45,23 @@
    }`
 
 
-    * **Code:** 400 <br />
+  * **Code:** 400 <br />
     **Content:** <br />
     `{
     "statusCode": 400,
     "status": 400,
     "code": 400,
-    "message": "Invalid client: missing client `grants`",
+    "message": "Invalid client: missing client grants",
     "name": "invalid_client"
     }`
 
-    * **Code:** 400 <br />
+  * **Code:** 400 <br />
     **Content:** <br />
     `{
     "statusCode": 400,
     "status": 400,
     "code": 400,
-    "message": "Unsupported response type: `response_type` is not supported",
+    "message": "Unsupported response type: response_type is not supported",
     "name": "unsupported_response_type"
     }`
 
