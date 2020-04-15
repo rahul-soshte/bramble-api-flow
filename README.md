@@ -2,7 +2,7 @@
 **1.**
 **User clicks the Bramble Authorize Button**
 ----
-  The user puts in his username and password and then is redirected back to the game. 
+  Opens up the Bramble Authorization Page. The user puts in his username and password and then is redirected back to the game. 
 
 * **URL**
 
@@ -35,7 +35,8 @@
 * **Error Response:**
 
   * **Code:** 400 <br />
-    **Content:** `{
+    **Content:** <br />
+    `{
     "statusCode": 400,
     "status": 400,
     "code": 400,
@@ -44,10 +45,31 @@
    }`
 
 
+    * **Code:** 400 <br />
+    **Content:** <br />
+    `{
+    "statusCode": 400,
+    "status": 400,
+    "code": 400,
+    "message": "Invalid client: missing client `grants`",
+    "name": "invalid_client"
+    }`
+
+    * **Code:** 400 <br />
+    **Content:** <br />
+    `{
+    "statusCode": 400,
+    "status": 400,
+    "code": 400,
+    "message": "Unsupported response type: `response_type` is not supported",
+    "name": "unsupported_response_type"
+    }`
+
+
 * **Sample Call:**
 
   ```javascript
-  window.open('http://3.19.60.28:3000/bramble?response_type=code&client_id=mansim&redirect_uri=http://armygrid.com/callback/&state=teststate&scope=profile', '_blank');
+  window.open('http://3.19.60.28:3000/bramble?response_type=code&client_id=mansim&redirect_uri=http://armygrid.com/callback/&state=teststate&scope=profile', '_self');
   ```
 * **Notes:**
 
@@ -56,7 +78,7 @@
 **2.**
 **Authorization Grant Request**
 ----
-  Extracting the 'code' in the Callback URL of the previous request, the final access Token which will help to send / receive data using this request
+  Extracting the 'code' in the Callback URL of the previous request and using it you will get the access Token which will help you to send reward data in this request
 
 * **URL**
 
@@ -158,7 +180,8 @@ Request which will send Achievements data of the user to Bramble API. So if a us
 * **Error Response:**
 
   * **Code:** 401 <br />
-    **Content:** ` {
+    **Content:** 
+    ` {
     "statusCode": 401,
     "status": 401,
     "code": 401,
@@ -201,23 +224,25 @@ Sometimes the Access Token / Refresh Token will expire you will renew them again
   
 * **Header Params**
 
-      ``Authorization='Basic ' + btoa('client_id:client_secret_id)'``
+      `Authorization='Basic ' + btoa('client_id:client_secret_id)'`
 
 * **Success Response:**
 
   * **Code:** 200 <br />
-    **Content:** `{
+    **Content:** 
+    `{
         "access_token": "199146e7e010ffa216301333b4c8cc14b9184958",
         "accessTokenExpiresAt": "2020-03-24T13:34:07.337Z",
         "scope": "profile",
         "refreshToken": "1dcabd1c75520b4b8567517fc8cd0a8e218865b2",
         "refreshTokenExpiresAt": "2020-04-24T21:21:56.017Z"
-       }`
+    }`
 
 * **Error Response:**
 
   * **Code:** 400 <br />
-    **Content:** `{
+    **Content:** 
+    `{
     "statusCode": 400,
     "status": 400,
     "code": 400,
