@@ -169,8 +169,7 @@
       console.log(body.refreshToken)
     }
     else{
-      var info1 = JSON.parse(response.body);
-      console.log(info1);
+      console.log(body);
     }
   }
 
@@ -372,7 +371,7 @@ Sometimes the Access Token / Refresh Token will expire you will renew them again
         console.log(body.refreshToken)
       }
       else{
-        console.log(response.body);
+        console.log(body);
       }
     }
 
