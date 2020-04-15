@@ -258,6 +258,7 @@ Request which will send Achievements data of the user to Bramble API. So if a us
   ```
 
 * **Notes:**
+
   After the achievements are sent to the Bramble API. The Bramble API rewards the user Brambles and the reward is reflected in the Bramble Wallet of the User.
 
 **4.** 
@@ -378,4 +379,5 @@ Sometimes the Access Token / Refresh Token will expire you will renew them again
     request(options, callback);
   ```
 * **Notes:**
+
   Using the old refresh Token you can regenerate new Refresh Token and new Access Token again. Refresh Token as it is called is used to refresh or renew tokens.
