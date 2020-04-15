@@ -128,6 +128,7 @@
 * **Sample Call:**
 
   ```javascript
+    //JS
         var xhr = new XMLHttpRequest();
         authURL = "http://3.19.60.28/grant";
         xhr.open('POST',authURL, true);
@@ -145,7 +146,7 @@
   ```
 
   ```javascript
-  
+  // Request module Nodejs 
   var postData = {
     "grant_type": 'authorization_code',
     "code":"335c162ae937c0ece349fdea6d57ec0e8160100d",
@@ -178,13 +179,13 @@
 
 * **Notes:**
 
-  You will get two tokens. Refresh Token and Access Token. Refresh Token is the one which doesn't expire frequently but access token expire frequently. This Access Token will help you in sending the Achievement Data to the Bramble API as seen in the next request.
+  You will get two tokens. Refresh Token and Access Token. Refresh Token is the one which doesn't expire frequently but Access token expire frequently. This Access Token will help you in sending the Achievement Data to the Bramble API as seen in the next request.
 
 **3.** 
 **Simple Achievement Data POST Request**
 ----
 
-Request which will send Achievements data of the user to Bramble API. So if a user has completed a particular the game can send data to Bramble API with this request.
+Request which will send Achievements data of the user to Bramble API. So if a user has completed a particular achievment the game can send data to Bramble API with this request.
 
 * **URL**
 
@@ -331,6 +332,7 @@ Sometimes the Access Token / Refresh Token will expire you will renew them again
 * **Sample Call:**
 
   ```javascript
+      //js
         var xhr = new XMLHttpRequest();
         var renewTokenURL = "http://3.19.60.28:3000/renew";
         xhr.open('POST',renewTokenURL, true);
@@ -346,8 +348,9 @@ Sometimes the Access Token / Refresh Token will expire you will renew them again
 
         xhr.send(data);        
   ```
-  <br/>
+
   ```javascript
+      //request module nodejs
       var postData = {  
       "grant_type": "refresh_token",
       "refresh_token": "a6332349d0eb240b26f03a53ec12ad12d53ab90b"
