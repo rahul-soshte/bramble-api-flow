@@ -244,7 +244,7 @@ Request which will send Achievements data of the user to Bramble API. So if a us
 
   ```javascript
         var xhr = new XMLHttpRequest();
-        var achievementURL = "http://3.19.60.28:3000/achievement/5e932605643f8ebcc7135483";
+        var achievementURL = "http://3.19.60.28:3000/achievement/5e872a6ac3d6ae53213befcb";
         xhr.open('POST',achievementURL, true);
         xhr.setRequestHeader("Authorization","Bearer "+ "199146e7e010ffa216301333b4c8cc14b9184958");
         xhr.onreadystatechange = function() {
