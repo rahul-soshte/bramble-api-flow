@@ -30,7 +30,7 @@
 
   * **Code:** 200 <br />
     **Content:**
-     `Open the Bramble Authorization Page for the user`
+     `Opens the Bramble Authorization Page for the user`
 
 * **Error Response:**
 
@@ -43,7 +43,6 @@
     "message": "Invalid client: redirect_uri does not match client value",
     "name": "invalid_client"
    }`
-
 
   * **Code:** 400 <br />
     **Content:** <br />
@@ -73,12 +72,12 @@
   ```
 * **Notes:**
 
-  The user will be redirected after the authorization step to the callback url of the game. The authorization code will be attached to the callback url ( Example: http://armygrid.com/callback/authorization_code ). Extract the authorization code and use it in the next request.
+  The user will be redirected after the authorization step to the callback url of the game. The authorization code will be attached to the callback url ( Example: http://armygrid.com/callback/authorization_code ). Extract the authorization_code value and use it in the next request.
 
 **2.**
 **Authorization Grant Request**
 ----
-  Extracting the 'code' in the Callback URL of the previous request and using it you will get the access Token which will help you to send reward data in this request
+ The access Token which will help you to send reward data is received in this request.
 
 * **URL**
 
@@ -98,7 +97,7 @@
     `{
      "grant_type":"authorization_code",
      "code":"authorization_code_recieved_in_the_previous request",
-     "redirect_uri":"armygrid.com/bramble_callback"
+     "redirect_uri":"armygrid.com/bramble_callback/"
     }`
 
 * **Success Response:**
@@ -133,7 +132,7 @@
         xhr.open('POST',authURL, true);
         xhr.setRequestHeader("Authorization","Basic "+ btoa("mansim:armygrid"));
         xhr.setRequestHeader("Content-Type", "application/json"); 
-        var data = JSON.stringify({ "grant_type": "authorization_code", "code": "335c162ae937c0ece349fdea6d57ec0e8160100d", "redirect_uri":"armygrid.com/bramble_callback" });
+        var data = JSON.stringify({ "grant_type": "authorization_code", "code": "335c162ae937c0ece349fdea6d57ec0e8160100d", "redirect_uri":"armygrid.com/bramble_callback/" });
 
         xhr.onreadystatechange = function() {
 
@@ -142,6 +141,39 @@
             }
         }
         xhr.send(data);
+  ```
+  <br/>
+  ```javascript
+  
+  var postData = {
+    "grant_type": 'authorization_code',
+    "code":"335c162ae937c0ece349fdea6d57ec0e8160100d",
+    "redirect_uri": 'http://armygrid.com/bramble_callback/'
+  }
+
+  var options = {
+    url: 'http://3.19.60.28:3000/grant',
+    method: 'POST',
+    headers: {
+    "Authorization":"Basic " + btoa("mansim:armygrid")
+    },
+    body:postData,
+    json:true
+  };
+
+  function callback(error, response, body) {
+    if (!error && response.statusCode == 200) {
+      console.log(body.accessToken);
+      console.log(body.refreshToken)
+    }
+    else{
+      var info1 = JSON.parse(response.body);
+      console.log(info1);
+    }
+  }
+
+  request(options, callback);
+
   ```
 
 * **Notes:**
@@ -180,7 +212,7 @@ Request which will send Achievements data of the user to Bramble API. So if a us
 * **Error Response:**
 
   * **Code:** 401 <br />
-    **Content:** 
+    **Content:** <br/>
     ` {
     "statusCode": 401,
     "status": 401,
@@ -188,6 +220,25 @@ Request which will send Achievements data of the user to Bramble API. So if a us
     "message": "Invalid token: access token has expired",
     "name": "invalid_token"
     }`
+
+  * **Code:** 401 <br />
+    **Content:** <br/>
+    ` {
+    "statusCode": 401,
+    "status": 401,
+    "code": 401,
+    "message": "Invalid token: access token is invalid",
+    "name": "invalid_token"
+   }`
+
+  * **Code:** 500 <br />
+    **Content:** <br/>
+    `Achievement Already Added`
+
+  * **Code:** 501 <br />
+    **Content:** <br/>
+    `No such achievement`
+
 
 * **Sample Call:**
 
@@ -224,7 +275,13 @@ Sometimes the Access Token / Refresh Token will expire you will renew them again
   
 * **Header Params**
 
-      `Authorization='Basic ' + btoa('client_id:client_secret_id)'`
+    `Authorization='Basic ' + btoa('client_id:client_secret_id)'`
+
+* **Body Params(raw JSON)**
+    `{  
+      "grant_type": "refresh_token",
+      "refresh_token": "a6332349d0eb240b26f03a53ec12ad12d53ab90b"
+    }`
 
 * **Success Response:**
 
@@ -250,6 +307,27 @@ Sometimes the Access Token / Refresh Token will expire you will renew them again
     "name": "invalid_grant"
     }`
 
+  * **Code:** 400 <br />
+    **Content:** 
+    `{
+    "statusCode": 400,
+    "status": 400,
+    "code": 400,
+    "message": "Invalid client: cannot retrieve client credentials",
+    "name": "invalid_client"
+    }`
+
+  * **Code:** 401 <br />
+    **Content:** <br/>
+    ` {
+    "statusCode": 401,
+    "status": 401,
+    "code": 401,
+    "message": "Invalid token: refresh token has expired",
+    "name": "invalid_token"
+    }`
+
+
 * **Sample Call:**
 
   ```javascript
@@ -266,7 +344,36 @@ Sometimes the Access Token / Refresh Token will expire you will renew them again
             }
         }
 
-        xhr.send();
+        xhr.send(data);        
+  ```
+  <br/>
+  ```javascript
+      var postData = {  
+      "grant_type": "refresh_token",
+      "refresh_token": "a6332349d0eb240b26f03a53ec12ad12d53ab90b"
+      }
+
+    var options = {
+      url: 'http://3.19.60.28:3000/grant',
+      method: 'POST',
+      headers: {
+      "Authorization":"Basic " + btoa("mansim:armygrid")
+      },
+      body:postData,
+      json:true
+    };
+
+    function callback(error, response, body) {
+      if (!error && response.statusCode == 200) {
+        console.log(body.accessToken);
+        console.log(body.refreshToken)
+      }
+      else{
+        console.log(response.body);
+      }
+    }
+
+    request(options, callback);
   ```
 * **Notes:**
-  Using the old refresh Token you can regenerate new Refresh Token and new Access Token again. Refresh Token as it is called is used to Refresh Tokens. 
+  Using the old refresh Token you can regenerate new Refresh Token and new Access Token again. Refresh Token as it is called is used to refresh or renew tokens.
