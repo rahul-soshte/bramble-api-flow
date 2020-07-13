@@ -181,24 +181,24 @@
   You will get two tokens. Refresh Token and Access Token. Refresh Token is the one which doesn't expire frequently but Access token expire frequently. This Access Token will help you in sending the Achievement Data to the Bramble API as seen in the next request.
 
 **3.** 
-**Simple Achievement Data POST Request**
+**Simple Achievement Data GET Request**
 ----
 
 Request which will send Achievements data of the user to Bramble API. So if a user has completed a particular achievment the game can send data to Bramble API with this request.
 
 * **URL**
 
-    /achievement/:achievement_id
+    /achievement/armygrid/:achievement_name
 
 * **Method:**
 
-  `POST`
+  `GET`
   
 *  **URL Params**
 
    **Required:**
 
-      `achievement_id=[hexadecimal] (example: '5e872a6ac3d6ae53213befcb')`  
+      `achievement_name=[String] (example: 'sample_achievement_2')`  
 
 * **Header Params**
 
@@ -244,8 +244,8 @@ Request which will send Achievements data of the user to Bramble API. So if a us
 
   ```javascript
         var xhr = new XMLHttpRequest();
-        var achievementURL = "http://3.19.60.28:3000/achievement/5e872a6ac3d6ae53213befcb";
-        xhr.open('POST',achievementURL, true);
+        var achievementURL = "http://3.19.60.28:3000/achievement/armygrid/sample_achievement_2";
+        xhr.open('GET',achievementURL, true);
         xhr.setRequestHeader("Authorization","Bearer "+ "199146e7e010ffa216301333b4c8cc14b9184958");
         xhr.onreadystatechange = function() {
 
@@ -381,3 +381,44 @@ Sometimes the Access Token / Refresh Token will expire you will renew them again
 * **Notes:**
 
   Using the old refresh Token you can regenerate new Refresh Token and new Access Token again. Refresh Token as it is called is used to refresh or renew tokens.
+
+**5.** 
+**Returns the total bramble reals in the wallet.**
+
+  To read the total amount of bramble reals in the user's wallet.
+
+* **URL**
+
+    /wallet_brambles_reals
+
+* **Method:**
+
+  `GET`
+  
+* **Header Params**
+
+    `Authorization='Bearer ' + access_token_received_in_grant_request`
+
+* **Success Response:**
+
+  * **Code:** 200 <br />
+    **Content:** 
+    `80.35`
+
+
+* **Sample Call:**
+
+  ```javascript
+        var xhr = new XMLHttpRequest();
+        var walletBrambleRealsURL = "http://3.19.60.28:3000/wallet_brambles_reals";
+        xhr.open('GET', walletBrambleRealsURL, true);
+        xhr.setRequestHeader("Authorization","Bearer "+ "199146e7e010ffa216301333b4c8cc14b9184958");
+        xhr.onreadystatechange = function() {
+
+        if (xhr.readyState == XMLHttpRequest.DONE) {
+                alert(xhr.responseText);
+            }
+        }
+
+        xhr.send();
+  ```
