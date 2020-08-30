@@ -263,6 +263,7 @@ Request which will send Achievements data of the user to Bramble API. So if a us
 
 **4.** 
 **Renewing Access Token / Refresh Token to get back access to the Bramble API**
+---
 
 Sometimes the Access Token / Refresh Token will expire you will renew them again by this request 
 
@@ -384,6 +385,7 @@ Sometimes the Access Token / Refresh Token will expire you will renew them again
 
 **5.** 
 **Returns the total bramble reals in the wallet.**
+---
 
   To read the total amount of bramble reals in the user's wallet.
 
@@ -446,6 +448,7 @@ Sometimes the Access Token / Refresh Token will expire you will renew them again
 
 **6.** 
 **Sends bramble reals earned to the wallet.**
+---
 
   To send the amount of bramble reals in the user's wallet.
 
