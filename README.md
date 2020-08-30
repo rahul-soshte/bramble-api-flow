@@ -405,6 +405,27 @@ Sometimes the Access Token / Refresh Token will expire you will renew them again
     **Content:** 
     `80.35`
 
+* **Error Response:**
+
+  * **Code:** 401 <br />
+    **Content:** <br/>
+    ` {
+    "statusCode": 401,
+    "status": 401,
+    "code": 401,
+    "message": "Invalid token: access token has expired",
+    "name": "invalid_token"
+    }`
+
+  * **Code:** 401 <br />
+    **Content:** <br/>
+    ` {
+    "statusCode": 401,
+    "status": 401,
+    "code": 401,
+    "message": "Invalid token: access token is invalid",
+    "name": "invalid_token"
+   }`
 
 * **Sample Call:**
 
@@ -412,6 +433,80 @@ Sometimes the Access Token / Refresh Token will expire you will renew them again
         var xhr = new XMLHttpRequest();
         var walletBrambleRealsURL = "http://3.19.60.28:3000/wallet_brambles_reals";
         xhr.open('GET', walletBrambleRealsURL, true);
+        xhr.setRequestHeader("Authorization","Bearer "+ "199146e7e010ffa216301333b4c8cc14b9184958");
+        xhr.onreadystatechange = function() {
+
+        if (xhr.readyState == XMLHttpRequest.DONE) {
+                alert(xhr.responseText);
+            }
+        }
+
+        xhr.send();
+  ```
+
+**6.** 
+**Sends bramble reals earned to the wallet.**
+
+  To send the amount of bramble reals in the user's wallet.
+
+* **URL**
+
+    /send_brambles_reals/:reals
+
+* **Method:**
+
+  `GET`
+
+*  **URL Params**
+
+   **Required:**
+
+      `reals=[Integer] (example: '4')`  
+
+
+* **Header Params**
+
+    `Authorization='Bearer ' + access_token_received_in_grant_request`
+
+* **Success Response:**
+
+  * **Code:** 200 <br />
+    **Content:** 
+    `Brambles Reals have been increased to 14`
+
+
+* **Error Response:**
+
+  * **Code:** 401 <br />
+    **Content:** <br/>
+    ` {
+    "statusCode": 401,
+    "status": 401,
+    "code": 401,
+    "message": "Invalid token: access token has expired",
+    "name": "invalid_token"
+    }`
+
+  * **Code:** 401 <br />
+    **Content:** <br/>
+    ` {
+    "statusCode": 401,
+    "status": 401,
+    "code": 401,
+    "message": "Invalid token: access token is invalid",
+    "name": "invalid_token"
+   }`
+
+  * **Code:** 500 <br />
+    **Content:** <br/>
+    `error increasing`
+
+* **Sample Call:**
+
+  ```javascript
+        var xhr = new XMLHttpRequest();
+        var sendBrambleRealsURL = "http://3.19.60.28:3000/send_brambles_reals/10";
+        xhr.open('GET', sendBrambleRealsURL, true);
         xhr.setRequestHeader("Authorization","Bearer "+ "199146e7e010ffa216301333b4c8cc14b9184958");
         xhr.onreadystatechange = function() {
 
